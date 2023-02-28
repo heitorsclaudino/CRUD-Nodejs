@@ -14,18 +14,20 @@ const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'clients'
+    database: 'congresso'
 });
 
-app.get('/', (req, res) => {
-    res.send('Home');
+db.query("SELECT * FROM users;", (err, resultado) => {
+    if(err){
+        console.log(err);
+    }
+    console.log(resultado);
 })
 
-app.listen(3001, () => {
-    db.query("SELECT * FROM users;", (err, resultado) => {
-        if(err){
-            console.log(err);
-        }
-        console.log(resultado);
-    })
+app.get('/', (req, res) => {
+    res.send("Acesse /read para ler os dados ou /insert para inserir novos dados.")
+})
+
+app.listen(8080, () => {
+    console.log("Server running.")
 })
